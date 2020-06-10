@@ -7,9 +7,11 @@ import useCachedResources from './hooks/useCachedResources';
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
 
+// Main stack navigator.
 const Stack = createStackNavigator();
 
-export default function App(props) {
+export default function App() {
+  // Check if the loading is complete on every render.
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
