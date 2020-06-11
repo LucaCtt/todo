@@ -4,7 +4,7 @@ import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 import ThemeContext from "./ThemeContext";
-import { customTheme, mapping } from "./theme.json";
+import { theme as customTheme, mapping } from "./theme.json";
 import { StatusBar } from "react-native";
 
 export default KittenProvider = ({ children }) => {
