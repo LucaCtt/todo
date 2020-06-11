@@ -1,5 +1,4 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
 import { Button, Divider, Layout, TopNavigation } from "@ui-kitten/components";
 
 export default HomeScreen = ({ navigation }) => {
@@ -7,15 +6,23 @@ export default HomeScreen = ({ navigation }) => {
     navigation.navigate("Details");
   };
 
+  const themeContext = React.useContext(ThemeContext);
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <TopNavigation title="MyApp" alignment="center" />
+    <>
+      <TopNavigation title="Home" alignment="center" />
       <Divider />
       <Layout
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
       >
         <Button onPress={navigateDetails}>OPEN DETAILS</Button>
+        <Button
+          style={{ marginVertical: 4 }}
+          onPress={themeContext.toggleTheme}
+        >
+          TOGGLE THEME
+        </Button>
       </Layout>
-    </SafeAreaView>
+    </>
   );
 };

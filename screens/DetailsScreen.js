@@ -1,5 +1,4 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
 import {
   Divider,
   Icon,
@@ -21,9 +20,9 @@ export default DetailsScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <>
       <TopNavigation
-        title="MyApp"
+        title="Details"
         alignment="center"
         accessoryLeft={BackAction}
       />
@@ -33,6 +32,6 @@ export default DetailsScreen = ({ navigation }) => {
       >
         <Text category="h1">DETAILS</Text>
       </Layout>
-    </SafeAreaView>
+    </>
   );
 };
