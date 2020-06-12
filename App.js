@@ -1,8 +1,10 @@
 import React from "react";
+import "mobx-react-lite/batchingForReactNative";
 
 import AppNavigator from "./navigation/AppNavigator";
 import useCachedResources from "./hooks/useCachedResources";
 import KittenProvider from "./kitten/KittenProvider";
+import { StoreProvider } from "./store/StoreProvider";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -11,9 +13,11 @@ export default function App() {
     return null;
   } else {
     return (
-      <KittenProvider>
-        <AppNavigator />
-      </KittenProvider>
+      <StoreProvider>
+        <KittenProvider>
+          <AppNavigator />
+        </KittenProvider>
+      </StoreProvider>
     );
   }
 }

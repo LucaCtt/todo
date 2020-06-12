@@ -12,8 +12,6 @@ import {
 const OptIcon = (props) => <Icon {...props} name="settings-2-outline" />;
 
 export default HomeScreen = ({ navigation }) => {
-  const themeContext = React.useContext(ThemeContext);
-
   const OptAction = () => (
     <TopNavigationAction
       icon={OptIcon}
@@ -29,9 +27,7 @@ export default HomeScreen = ({ navigation }) => {
         accessoryRight={OptAction}
       />
       <Divider />
-      <Layout style={styles.layout}>
-        <Button onPress={themeContext.toggleTheme}>TOGGLE THEME</Button>
-      </Layout>
+      <Layout style={styles.layout}></Layout>
     </>
   );
 };
