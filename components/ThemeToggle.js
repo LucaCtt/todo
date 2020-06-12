@@ -2,11 +2,9 @@ import React from "react";
 import { Toggle } from "@ui-kitten/components";
 import { observer } from "mobx-react-lite";
 
-import { useStore } from "../hooks/useStore";
+import useTheme from "../hooks/useTheme";
 
 export default ThemeToggle = observer(() => {
-  const store = useStore();
-  return (
-    <Toggle checked={store.theme === "dark"} onChange={store.toggleTheme} />
-  );
+  const [theme, toggleTheme] = useTheme();
+  return <Toggle checked={theme === "dark"} onChange={toggleTheme} />;
 });
