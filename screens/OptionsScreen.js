@@ -1,4 +1,5 @@
 import React from "react";
+import { StyleSheet } from "react-native";
 import {
   Divider,
   Icon,
@@ -24,9 +25,15 @@ export default OptionsScreen = ({ navigation }) => {
         accessoryLeft={BackAction}
       />
       <Divider />
-      <Layout style={{ flex: 1 }}>
+      <Layout style={styles.layout}>
         <OptionsList />
       </Layout>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  layout: {
+    flex: 1,
+  },
+});
