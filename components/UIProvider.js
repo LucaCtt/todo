@@ -6,10 +6,12 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { observer } from "mobx-react-lite";
 
 import useTheme from "../hooks/useTheme";
-import { theme as customTheme, mapping } from "./theme.json";
 import useCachedResources from "../hooks/useCachedResources";
+import { theme as customTheme, mapping } from "../eva-theme.json";
 
-export default KittenProvider = observer(({ children }) => {
+export default UIProvider = observer(({ children }) => {
+  // Resources are loaded here instead than on the root component because access to the store
+  // is required to load the stored theme.
   const isLoadingComplete = useCachedResources();
   const [theme] = useTheme();
 

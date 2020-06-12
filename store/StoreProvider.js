@@ -7,7 +7,7 @@ import createStore from "./store";
 
 export const storeContext = createContext(null);
 
-export const StoreProvider = ({ children }) => {
+export default StoreProvider = ({ children }) => {
   const store = useLocalStore(createStore);
 
   useEffect(() => {
