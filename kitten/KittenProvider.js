@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import { StatusBar } from "react-native";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 import ThemeContext from "./ThemeContext";
+import useThemeStore from "../hooks/useThemeStore";
 import { theme as customTheme, mapping } from "./theme.json";
-import { StatusBar } from "react-native";
 
 export default KittenProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "light" ? "dark" : "light";
-    setTheme(nextTheme);
-  };
+  const [theme, toggleTheme] = useThemeStore("light");
 
   return (
     <>

@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Toggle } from "@ui-kitten/components";
 
-export default ThemeToggle = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+import useTheme from "../hooks/useTheme";
 
-  return <Toggle checked={theme === "dark"} onChange={() => toggleTheme()} />;
+export default ThemeToggle = () => {
+  const [theme, toggleTheme] = useTheme();
+  return <Toggle checked={theme === "dark"} onChange={toggleTheme} />;
 };
