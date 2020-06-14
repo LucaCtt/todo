@@ -8,6 +8,8 @@ import {
   Icon,
 } from "@ui-kitten/components";
 
+import TodoList from "../components/TodoList";
+
 const OptIcon = (props) => <Icon {...props} name="settings-2-outline" />;
 
 export default HomeScreen = ({ navigation }) => {
@@ -26,11 +28,13 @@ export default HomeScreen = ({ navigation }) => {
         accessoryRight={OptAction}
       />
       <Divider />
-      <Layout style={styles.layout}></Layout>
+      <Layout style={styles.layout}>
+        <TodoList />
+      </Layout>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  layout: { flex: 1, justifyContent: "center", alignItems: "center" },
+  layout: { flex: 1 },
 });
