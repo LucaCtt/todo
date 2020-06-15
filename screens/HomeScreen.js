@@ -1,18 +1,17 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import {
-  Divider,
-  Layout,
-  TopNavigation,
-  TopNavigationAction,
-  Icon,
-} from "@ui-kitten/components";
+import { TopNavigationAction, Icon } from "@ui-kitten/components";
+import { observer } from "mobx-react-lite";
 
+import Navigation from "../components/Navigation";
 import TodoList from "../components/TodoList";
+import NewItemButton from "../components/NewItemButton";
+import useItems from "../hooks/useItems";
 
 const OptIcon = (props) => <Icon {...props} name="settings-2-outline" />;
 
-export default HomeScreen = ({ navigation }) => {
+export default HomeScreen = observer(({ navigation }) => {
+  const { items } = useItems();
+
   const OptAction = () => (
     <TopNavigationAction
       icon={OptIcon}
@@ -20,21 +19,13 @@ export default HomeScreen = ({ navigation }) => {
     />
   );
 
-  return (
-    <>
-      <TopNavigation
-        title="Home"
-        alignment="center"
-        accessoryRight={OptAction}
-      />
-      <Divider />
-      <Layout style={styles.layout}>
-        <TodoList />
-      </Layout>
-    </>
+  const NewItem = () => (
+    <NewItemButton onPress={() => navigation.navigate("NewItem")} />
   );
-};
 
-const styles = StyleSheet.create({
-  layout: { flex: 1 },
+  return (
+    <Navigation title="Home" accessoryRight={OptAction}>
+      <TodoList title="TODO" items={items} Accessory={NewItem} />
+    </Navigation>
+  );
 });

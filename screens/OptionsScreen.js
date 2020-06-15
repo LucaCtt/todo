@@ -1,13 +1,7 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import {
-  Divider,
-  Icon,
-  Layout,
-  TopNavigation,
-  TopNavigationAction,
-} from "@ui-kitten/components";
+import { Icon, TopNavigationAction } from "@ui-kitten/components";
 
+import Navigation from "../components/Navigation";
 import OptionsList from "../components/OptionsList";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
@@ -18,22 +12,8 @@ export default OptionsScreen = ({ navigation }) => {
   );
 
   return (
-    <>
-      <TopNavigation
-        title="Options"
-        alignment="center"
-        accessoryLeft={BackAction}
-      />
-      <Divider />
-      <Layout style={styles.layout}>
-        <OptionsList />
-      </Layout>
-    </>
+    <Navigation title="Options" accessoryLeft={BackAction}>
+      <OptionsList />
+    </Navigation>
   );
 };
-
-const styles = StyleSheet.create({
-  layout: {
-    flex: 1,
-  },
-});

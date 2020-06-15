@@ -1,22 +1,16 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { List, Divider, Card, Text } from "@ui-kitten/components";
-import { observer } from "mobx-react-lite";
 
 import TodoItem from "./TodoItem";
-import NewItemButton from "./NewItemButton";
 
-import useItems from "../hooks/useItems";
-
-export default TodoList = observer((props) => {
-  const { items } = useItems();
-
+export default TodoList = ({ items, title, Accessory, ...props }) => {
   const Header = (props) => (
     <View {...props} style={styles.header}>
       <Text category="h6" style={styles.title}>
-        TODO
+        {title}
       </Text>
-      <NewItemButton />
+      <Accessory />
     </View>
   );
 
@@ -30,7 +24,7 @@ export default TodoList = observer((props) => {
       />
     </Card>
   );
-});
+};
 
 const styles = StyleSheet.create({
   header: {
