@@ -8,13 +8,8 @@ import NewItemButton from "./NewItemButton";
 
 import useItems from "../hooks/useItems";
 
-export default TodoList = observer(({ style }) => {
-  const { items, toggleComplete: toggle } = useItems();
-  const data = items.map((item) => ({
-    text: item.text,
-    completed: item.completed,
-    toggleComplete: () => toggle(item.id),
-  }));
+export default TodoList = observer((props) => {
+  const { items } = useItems();
 
   const Header = (props) => (
     <View {...props} style={styles.header}>
@@ -26,10 +21,11 @@ export default TodoList = observer(({ style }) => {
   );
 
   return (
-    <Card disabled header={Header} style={{ ...styles.container, ...style }}>
+    <Card disabled header={Header} style={styles.container}>
       <List
-        data={data}
-        renderItem={TodoItem}
+        {...props}
+        data={items}
+        renderItem={({ item }) => <TodoItem item={item} />}
         ItemSeparatorComponent={Divider}
       />
     </Card>
@@ -44,10 +40,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
   },
   container: {
-    margin: 16,
-    paddingVertical: 0,
+    margin: 14,
   },
 });

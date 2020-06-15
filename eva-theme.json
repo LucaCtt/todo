@@ -79,6 +79,18 @@
   "mapping": {
     "strict": {
       "text-font-family": "OpenSans"
+    },
+    "components": {
+      "Card": {
+        "appearances": {
+          "outline": {
+            "mapping": {
+              "bodyPaddingVertical": 4,
+              "bodyPaddingHorizontal": 6
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ export default createStore = () => ({
   ],
   addItem(text) {
     const item = {
-      id: this.nextItemId,
+      id: this._nextItemId,
       text,
       completed: false,
     };
@@ -23,7 +23,7 @@ export default createStore = () => ({
     item.completed = !item.completed;
   },
 
-  get nextItemId() {
+  get _nextItemId() {
     if (this.items.length === 0) {
       return 0;
     }

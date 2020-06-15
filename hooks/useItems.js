@@ -1,10 +1,10 @@
 import useStore from "./useStore";
 
-export default useTheme = () => {
+export default useItems = () => {
   const store = useStore();
   return {
     items: store.items,
-    add: store.addItem,
-    toggleComplete: store.toggleCompleteItem,
+    addItem: store.addItem,
+    toggleCompleteItem: store.toggleCompleteItem,
   };
 };

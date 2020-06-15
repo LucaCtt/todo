@@ -1,33 +1,41 @@
 import React from "react";
-import { ListItem, CheckBox, Text } from "@ui-kitten/components";
 import { StyleSheet } from "react-native";
+import { ListItem, CheckBox, Text } from "@ui-kitten/components";
+import { observer } from "mobx-react-lite";
 
-export default TodoItem = ({ item: { text, completed, toggleComplete } }) => {
-  const Left = () => (
+import useItems from "../hooks/useItems";
+
+export default TodoItem = observer(({ item, ...props }) => {
+  const { toggleCompleteItem } = useItems();
+
+  const Left = observer((props) => (
     <CheckBox
-      checked={completed}
-      onChange={toggleComplete}
+      {...props}
+      checked={item.completed}
+      onChange={() => toggleCompleteItem(item.id)}
       style={styles.checkBox}
     />
-  );
+  ));
+
+  const Description = observer((props) => (
+    <Text
+      {...props}
+      style={
+        item.completed ? { ...styles.text, ...styles.textBarred } : styles.text
+      }
+    >
+      {item.text}
+    </Text>
+  ));
 
   return (
     <ListItem
-      onPress={toggleComplete}
-      title={(evaProps) => (
-        <Text
-          {...evaProps}
-          style={
-            completed ? { ...styles.text, ...styles.textBarred } : styles.text
-          }
-        >
-          {text}
-        </Text>
-      )}
+      {...props}
+      title={(props) => <Description {...props} />}
       accessoryLeft={Left}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   text: {
@@ -36,5 +44,8 @@ const styles = StyleSheet.create({
   },
   textBarred: {
     textDecorationLine: "line-through",
+  },
+  checkBox: {
+    paddingLeft: 4,
   },
 });
