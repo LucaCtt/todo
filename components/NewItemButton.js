@@ -5,12 +5,13 @@ import NewItemModal from "./NewItemModal";
 
 const AddButton = (props) => <Icon {...props} name="plus" />;
 
-export default NewItemButton = () => {
+export default NewItemButton = (props) => {
   const [visible, setVisible] = useState(false);
 
   return (
     <>
       <Button
+        {...props}
         appearance="ghost"
         accessoryLeft={AddButton}
         onPress={() => setVisible(true)}
