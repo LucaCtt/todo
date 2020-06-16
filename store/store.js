@@ -6,8 +6,12 @@ export default createStore = () => ({
   },
 
   items: [
-    { id: 0, text: "test", completed: false },
-    { id: 1, text: "fuck off", completed: false },
+    { id: 0, text: "Click the plus icon to add an item!", completed: false },
+    {
+      id: 1,
+      text: "I'm completed! Click the trash icon to delete me!",
+      completed: true,
+    },
   ],
   addItem(text) {
     const item = {
@@ -21,6 +25,9 @@ export default createStore = () => ({
   toggleCompleteItem(id) {
     const item = this.items.filter((item) => item.id === id)[0];
     item.completed = !item.completed;
+  },
+  deleteItem(item) {
+    this.items.remove(item);
   },
 
   get _nextItemId() {

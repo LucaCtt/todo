@@ -4,6 +4,7 @@ import { ListItem, CheckBox, Text } from "@ui-kitten/components";
 import { observer } from "mobx-react-lite";
 
 import useItems from "../hooks/useItems";
+import IconButton from "./IconButton";
 
 export default TodoItem = observer(({ item, ...props }) => {
   const { toggleCompleteItem } = useItems();

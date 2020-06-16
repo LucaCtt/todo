@@ -6,14 +6,28 @@ import { observer } from "mobx-react-lite";
 
 import useItems from "../hooks/useItems";
 import TodoItem from "./TodoItem";
-import NewItemButton from "../components/NewItemButton";
+import IconButton from "../components/IconButton";
 
 export default TodoList = observer(({ ...props }) => {
-  const { items } = useItems();
+  const { items, deleteItem } = useItems();
   const navigation = useNavigation();
 
-  const NewItem = () => (
-    <NewItemButton onPress={() => navigation.navigate("NewItem")} />
+  const ClearButton = (props) => (
+    <IconButton
+      {...props}
+      icon="trash"
+      onPress={() =>
+        items.filter((i) => i.completed).forEach((i) => deleteItem(i))
+      }
+    />
+  );
+
+  const NewItemButton = (props) => (
+    <IconButton
+      {...props}
+      icon="plus"
+      onPress={() => navigation.navigate("NewItem")}
+    />
   );
 
   const Header = (props) => (
@@ -21,7 +35,10 @@ export default TodoList = observer(({ ...props }) => {
       <Text category="h6" style={styles.title}>
         TODO
       </Text>
-      <NewItem />
+      <View style={styles.headerButtons}>
+        <ClearButton />
+        <NewItemButton />
+      </View>
     </View>
   );
 
@@ -41,7 +58,7 @@ export default TodoList = observer(({ ...props }) => {
   });
 
   return (
-    <Card disabled header={Header} style={styles.container}>
+    <Card {...props} disabled header={Header} style={styles.container}>
       <ItemsList />
     </Card>
   );
@@ -52,6 +69,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+  },
+  headerButtons: {
+    flexDirection: "row",
   },
   title: { paddingHorizontal: 16 },
   container: {

@@ -6,5 +6,6 @@ export default useItems = () => {
     items: store.items,
     addItem: store.addItem,
     toggleCompleteItem: store.toggleCompleteItem,
+    deleteItem: store.deleteItem,
   };
 };
