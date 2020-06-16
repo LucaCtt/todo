@@ -4,6 +4,7 @@ import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { observer } from "mobx-react-lite";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useTheme from "../hooks/useTheme";
 import useCachedResources from "../hooks/useCachedResources";
@@ -26,13 +27,15 @@ export default UIProvider = observer(({ children }) => {
           theme={{ ...eva[theme], ...customTheme }}
           customMapping={mapping}
         >
-          <StatusBar
-            barStyle={theme === "light" ? "dark-content" : "light-content"}
-            backgroundColor={
-              eva[theme][`color-basic-${theme === "light" ? "100" : "800"}`]
-            }
-          />
-          {children}
+          <SafeAreaProvider>
+            <StatusBar
+              barStyle={theme === "light" ? "dark-content" : "light-content"}
+              backgroundColor={
+                eva[theme][`color-basic-${theme === "light" ? "100" : "800"}`]
+              }
+            />
+            {children}
+          </SafeAreaProvider>
         </ApplicationProvider>
       </>
     );
