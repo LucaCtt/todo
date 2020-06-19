@@ -9,7 +9,7 @@ import { AsyncStorage } from "react-native";
 // the startup of the app, before the splash screen is hidden.
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const store = useStore();
+  const { themeStore } = useStore();
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -24,7 +24,7 @@ export default function useCachedResources() {
 
         const theme = await AsyncStorage.getItem("theme");
         if (theme) {
-          store.theme = theme;
+          themeStore.theme = theme;
         }
       } catch (e) {
         // We might want to provide this error information to an error reporting service

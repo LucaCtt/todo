@@ -14,7 +14,7 @@ export default UIProvider = observer(({ children }) => {
   // Resources are loaded here instead than on the root component because access to the store
   // is required to load the stored theme.
   const isLoadingComplete = useCachedResources();
-  const [theme] = useTheme();
+  const { theme } = useTheme();
 
   if (!isLoadingComplete) {
     return null;

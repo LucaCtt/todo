@@ -1,10 +1,12 @@
-export default createStore = () => ({
+export const createThemeStore = () => ({
   theme: "light",
   toggleTheme() {
     const nextTheme = this.theme === "light" ? "dark" : "light";
     this.theme = nextTheme;
   },
+});
 
+export const createItemsStore = () => ({
   items: [
     { id: 0, text: "Click the plus icon to add an item!", completed: false },
     {
