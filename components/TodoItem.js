@@ -32,6 +32,7 @@ export default TodoItem = observer(({ item, ...props }) => {
   return (
     <ListItem
       {...props}
+      onPress={() => toggleCompleteItem(item.id)}
       title={(props) => <Description {...props} />}
       accessoryLeft={Left}
     />
