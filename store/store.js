@@ -1,8 +1,16 @@
+import { AsyncStorage } from "react-native";
+import { DataStore } from "aws-amplify";
+import { Item } from "../models";
+
 export const createThemeStore = () => ({
   theme: "light",
   toggleTheme() {
     const nextTheme = this.theme === "light" ? "dark" : "light";
-    this.theme = nextTheme;
+    this.setTheme(nextTheme);
+  },
+  async setTheme(theme) {
+    this.theme = theme;
+    AsyncStorage.setItem("theme", this.theme);
   },
 });
 
@@ -15,7 +23,7 @@ export const createItemsStore = () => ({
       completed: true,
     },
   ],
-  addItem(text) {
+  async addItem(text) {
     const item = {
       id: this._nextItemId,
       text,
@@ -23,6 +31,12 @@ export const createItemsStore = () => ({
     };
 
     this.items.push(item);
+    await DataStore.save(
+      new Item({
+        text,
+        completed: false,
+      })
+    );
   },
   toggleCompleteItem(id) {
     const item = this.items.filter((item) => item.id === id)[0];

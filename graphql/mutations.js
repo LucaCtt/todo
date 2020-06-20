@@ -10,8 +10,12 @@ export const createItem = /* GraphQL */ `
       id
       text
       completed
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -24,8 +28,12 @@ export const updateItem = /* GraphQL */ `
       id
       text
       completed
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -38,8 +46,12 @@ export const deleteItem = /* GraphQL */ `
       id
       text
       completed
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;

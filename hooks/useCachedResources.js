@@ -24,7 +24,7 @@ export default function useCachedResources() {
 
         const theme = await AsyncStorage.getItem("theme");
         if (theme) {
-          themeStore.theme = theme;
+          themeStore.setTheme(theme);
         }
       } catch (e) {
         // We might want to provide this error information to an error reporting service

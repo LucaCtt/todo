@@ -1,26 +1,17 @@
-import React, { createContext, useEffect } from "react";
-import { AsyncStorage } from "react-native";
+import React, { createContext } from "react";
 import { useLocalStore } from "mobx-react-lite";
-import { reaction } from "mobx";
 
 import { createThemeStore, createItemsStore } from "./store";
 
 export const storeContext = createContext(null);
 
 export default StoreProvider = ({ children }) => {
-  const themeStore = useLocalStore(createThemeStore);
-  const itemsStore = useLocalStore(createItemsStore);
-
-  useEffect(() => {
-    reaction(
-      () => themeStore.theme,
-      () => AsyncStorage.setItem("theme", themeStore.theme)
-    );
-  }, []);
+  const store = {
+    themeStore: useLocalStore(createThemeStore),
+    itemsStore: useLocalStore(createItemsStore),
+  };
 
   return (
-    <storeContext.Provider value={{ themeStore, itemsStore }}>
-      {children}
-    </storeContext.Provider>
+    <storeContext.Provider value={store}>{children}</storeContext.Provider>
   );
 };
