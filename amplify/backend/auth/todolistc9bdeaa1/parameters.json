@@ -1,6 +1,4 @@
 {
-    "identityPoolName": "todolistc9bdeaa1_identitypool_c9bdeaa1",
-    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "todolic9bdeaa1",
     "userPoolName": "todolistc9bdeaa1_userpool_c9bdeaa1",
     "autoVerifiedAttributes": [
@@ -14,9 +12,13 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [],
+    "passwordPolicyCharacters": [
+        "Requires Lowercase",
+        "Requires Uppercase",
+        "Requires Numbers"
+    ],
     "requiredAttributes": [
         "email"
     ],
@@ -29,10 +31,10 @@
         "email"
     ],
     "userpoolClientLambdaRole": "todolic9bdeaa1_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "sharedId": "c9bdeaa1",
     "resourceName": "todolistc9bdeaa1",
-    "authSelections": "identityPoolAndUserPool",
+    "authSelections": "userPoolOnly",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -45,10 +47,18 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
         "email"
     ],
     "userPoolGroupList": [],
-    "dependsOn": []
+    "dependsOn": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "triggers": "{}",
+    "hostedUI": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": []
 }
