@@ -5,7 +5,7 @@ import { Auth } from "aws-amplify";
 
 import Navigation from "../components/Navigation";
 import AuthForm from "../components/AuthForm";
-import ConfirmEmailForm from "../components/ConfirmEmailForm";
+import ConfirmUserForm from "../components/ConfirmUserForm";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
@@ -19,39 +19,30 @@ export default SignUpScreen = ({ navigation }) => {
 
   const signUp = async (email, password) => {
     await Auth.signUp(email, password);
+    setEmail(email);
+    setSignedUp(true);
   };
 
-  const Wrapper = ({ children }) => (
+  const verifyUser = async (code) => {
+    await Auth.confirmSignUp(email, code);
+    navigation.navigate("Home");
+  };
+
+  return (
     <Navigation title="Sign Up" accessoryLeft={BackAction}>
       <Card disabled style={styles.container}>
-        {children}
+        {signedUp ? (
+          <ConfirmUserForm
+            email={email}
+            onResend={() => Auth.resendSignUp(email)}
+            onSubmit={verifyUser}
+          />
+        ) : (
+          <AuthForm submitText="Sign Up" onSubmit={signUp} />
+        )}
       </Card>
     </Navigation>
   );
-
-  if (!signedUp) {
-    return (
-      <Wrapper>
-        <AuthForm
-          submitText="Sign Up"
-          onSubmit={signUp}
-          onSuccess={(email) => {
-            setEmail(email);
-            setSignedUp(true);
-          }}
-        />
-      </Wrapper>
-    );
-  } else {
-    return (
-      <Wrapper>
-        <ConfirmEmailForm
-          email={email}
-          onSuccess={() => navigation.navigate("Home")}
-        />
-      </Wrapper>
-    );
-  }
 };
 
 const styles = StyleSheet.create({

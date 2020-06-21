@@ -1,30 +1,23 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import { Text, Spinner } from "@ui-kitten/components";
+import React, { useState, memo } from "react";
+import { Text } from "@ui-kitten/components";
 
-import FormInput from "../components/FormInput";
-import FormButton from "../components/FormButton";
+import FormInput from "./FormInput";
+import FormButton from "./FormButton";
+import LoadingIndicator from "./LoadingIndicator";
 
-const LoadingIndicator = (props) => (
-  <View {...props}>
-    <Spinner />
-  </View>
-);
-
-export default AuthForm = ({ submitText, onSubmit, onSuccess }) => {
+const AuthForm = ({ submitText, onSubmit }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const submit = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       await onSubmit(email, password);
-      setLoading(false);
-      onSuccess(email);
     } catch (err) {
       setError(err.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -45,7 +38,7 @@ export default AuthForm = ({ submitText, onSubmit, onSuccess }) => {
         onChangeText={(p) => setPassword(p)}
       />
       <FormButton
-        disabled={email == "" || password == "" || loading}
+        disabled={email === "" || password === "" || loading}
         onPress={submit}
         accessoryLeft={loading ? LoadingIndicator : null}
       >
@@ -55,3 +48,5 @@ export default AuthForm = ({ submitText, onSubmit, onSuccess }) => {
     </>
   );
 };
+
+export default memo(AuthForm);
