@@ -14,6 +14,13 @@ export const createThemeStore = () => ({
   },
 });
 
+export const createAuthInfoStore = () => ({
+  isLoggedIn: false,
+  setIsLoggedIn(value) {
+    this.isLoggedIn = value;
+  },
+});
+
 export const createItemsStore = () => ({
   items: [
     { id: 0, text: "Click the plus icon to add an item!", completed: false },

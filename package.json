@@ -24,7 +24,6 @@
     "@ui-kitten/components": "^5.0.0",
     "@ui-kitten/eva-icons": "^5.0.0",
     "aws-amplify": "^3.0.18",
-    "aws-amplify-react-native": "^4.2.1",
     "expo": "~37.0.9",
     "expo-asset": "~8.1.0",
     "expo-constants": "~9.0.0",

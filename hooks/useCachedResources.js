@@ -1,6 +1,7 @@
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
+import { Auth } from "aws-amplify";
 
 import useStore from "./useStore";
 import { AsyncStorage } from "react-native";
@@ -9,7 +10,7 @@ import { AsyncStorage } from "react-native";
 // the startup of the app, before the splash screen is hidden.
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const { themeStore } = useStore();
+  const { themeStore, authInfoStore } = useStore();
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -26,6 +27,9 @@ export default function useCachedResources() {
         if (theme) {
           themeStore.setTheme(theme);
         }
+
+        const userInfo = await Auth.currentSession();
+        authInfoStore.setIsLoggedIn(!!userInfo);
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
