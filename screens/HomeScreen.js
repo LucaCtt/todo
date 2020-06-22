@@ -12,7 +12,7 @@ const DarkIcon = (props) => <Icon {...props} name="moon-outline" />;
 const LightIcon = (props) => <Icon {...props} name="sun-outline" />;
 
 export default HomeScreen = observer(({ navigation }) => {
-  const { theme, toggleTheme } = useTheme();
+  const themeStore = useTheme();
 
   const UserAction = () => (
     <TopNavigationAction
@@ -23,8 +23,8 @@ export default HomeScreen = observer(({ navigation }) => {
 
   const ThemeAction = () => (
     <TopNavigationAction
-      icon={theme === "dark" ? LightIcon : DarkIcon}
-      onPress={() => toggleTheme()}
+      icon={themeStore.theme === "dark" ? LightIcon : DarkIcon}
+      onPress={() => themeStore.toggleTheme()}
     />
   );
 

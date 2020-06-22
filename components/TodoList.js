@@ -10,7 +10,7 @@ import IconButton from "../components/IconButton";
 import { screens } from "../constants";
 
 export default TodoList = observer(({ ...props }) => {
-  const { items, deleteItem } = useItems();
+  const itemsStore = useItems();
   const navigation = useNavigation();
 
   const ClearButton = (props) => (
@@ -18,7 +18,9 @@ export default TodoList = observer(({ ...props }) => {
       {...props}
       icon="trash"
       onPress={() =>
-        items.filter((i) => i.completed).forEach((i) => deleteItem(i))
+        itemsStore.items
+          .filter((i) => i.completed)
+          .forEach((i) => itemsStore.deleteItem(i))
       }
     />
   );
@@ -51,7 +53,7 @@ export default TodoList = observer(({ ...props }) => {
       <List
         {...props}
         keyExtractor={(item) => `${item.id}`}
-        data={items.slice()}
+        data={itemsStore.items.slice()}
         renderItem={({ item }) => <TodoItem item={item} />}
         ItemSeparatorComponent={Divider}
       />

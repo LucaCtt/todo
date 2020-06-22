@@ -10,7 +10,7 @@ const ConfirmIcon = (props) => <Icon {...props} name="checkmark" />;
 
 export default NewItemScreen = ({ navigation }) => {
   const [text, setText] = useState("");
-  const { addItem } = useItems();
+  const itemsStore = useItems();
 
   const CloseAction = () => (
     <TopNavigationAction icon={CloseIcon} onPress={() => navigation.goBack()} />
@@ -20,7 +20,7 @@ export default NewItemScreen = ({ navigation }) => {
     <TopNavigationAction
       icon={ConfirmIcon}
       onPress={() => {
-        addItem(text);
+        itemsStore.addItem(text);
         navigation.goBack();
       }}
     />

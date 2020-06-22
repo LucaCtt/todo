@@ -4,16 +4,15 @@ import { ListItem, CheckBox, Text } from "@ui-kitten/components";
 import { observer } from "mobx-react-lite";
 
 import useItems from "../hooks/useItems";
-import IconButton from "./IconButton";
 
 export default TodoItem = observer(({ item, ...props }) => {
-  const { toggleCompleteItem } = useItems();
+  const itemsStore = useItems();
 
   const Left = observer((props) => (
     <CheckBox
       {...props}
       checked={item.completed}
-      onChange={() => toggleCompleteItem(item.id)}
+      onChange={() => itemsStore.toggleCompleteItem(item.id)}
       style={styles.checkBox}
     />
   ));
@@ -32,7 +31,7 @@ export default TodoItem = observer(({ item, ...props }) => {
   return (
     <ListItem
       {...props}
-      onPress={() => toggleCompleteItem(item.id)}
+      onPress={() => itemsStore.toggleCompleteItem(item.id)}
       title={(props) => <Description {...props} />}
       accessoryLeft={Left}
     />

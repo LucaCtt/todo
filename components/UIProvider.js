@@ -14,7 +14,7 @@ export default UIProvider = observer(({ children }) => {
   // Resources are loaded here instead than on the root component because access to the store
   // is required to load the stored theme.
   const isLoadingComplete = useCachedResources();
-  const { theme } = useTheme();
+  const themeStore = useTheme();
 
   if (!isLoadingComplete) {
     return null;
@@ -24,14 +24,18 @@ export default UIProvider = observer(({ children }) => {
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider
           {...eva}
-          theme={{ ...eva[theme], ...customTheme }}
+          theme={{ ...eva[themeStore.theme], ...customTheme }}
           customMapping={mapping}
         >
           <SafeAreaProvider>
             <StatusBar
-              barStyle={theme === "light" ? "dark-content" : "light-content"}
+              barStyle={
+                themeStore.theme === "light" ? "dark-content" : "light-content"
+              }
               backgroundColor={
-                eva[theme][`color-basic-${theme === "light" ? "100" : "800"}`]
+                eva[themeStore.theme][
+                  `color-basic-${themeStore.theme === "light" ? "100" : "800"}`
+                ]
               }
             />
             {children}
