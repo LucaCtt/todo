@@ -19,6 +19,11 @@ export const createAuthInfoStore = () => ({
   setIsLoggedIn(value) {
     this.isLoggedIn = value;
   },
+
+  user: { email: "" },
+  setUser(user) {
+    this.user = user;
+  },
 });
 
 export const createItemsStore = () => ({

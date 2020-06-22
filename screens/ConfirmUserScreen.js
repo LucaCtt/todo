@@ -4,28 +4,35 @@ import { Card, Icon, TopNavigationAction } from "@ui-kitten/components";
 import { Auth } from "aws-amplify";
 
 import Navigation from "../components/Navigation";
-import AuthForm from "../components/AuthForm";
+import ConfirmUserForm from "../components/ConfirmUserForm";
 import useAuthInfo from "../hooks/useAuthInfo";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
-export default SignUpScreen = ({ navigation }) => {
+export default ConfirmUserScreen = ({ navigation }) => {
   const authInfo = useAuthInfo();
 
   const BackAction = () => (
     <TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
   );
 
-  const signUp = async (email, password) => {
-    const result = await Auth.signUp(email, password);
-    authInfo.setUser({ email: result.user.getUsername() });
-    navigation.navigate("ConfirmUser");
+  const verifyUser = async (code) => {
+    await Auth.confirmSignUp(authInfo.user.email, code);
+    if (authInfo.isLoggedIn) {
+      navigation.navigate("Home");
+    } else {
+      navigation.navigate("SignIn");
+    }
   };
 
   return (
-    <Navigation title="Sign Up" accessoryLeft={BackAction}>
+    <Navigation title="Confirm User" accessoryLeft={BackAction}>
       <Card disabled style={styles.container}>
-        <AuthForm submitText="Sign Up" onSubmit={signUp} />
+        <ConfirmUserForm
+          email={email}
+          onResend={() => Auth.resendSignUp(email)}
+          onSubmit={verifyUser}
+        />
       </Card>
     </Navigation>
   );
