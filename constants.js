@@ -5,4 +5,5 @@ export const screens = Object.freeze({
   SIGN_IN: "SignIn",
   SIGN_UP: "SignUp",
   CONFIRM_USER: "ConfirmUser",
+  USER_INFO: "UserInfo",
 });

@@ -1,11 +1,18 @@
 import React, { useState, memo } from "react";
+import { View } from "react-native";
 import { Text } from "@ui-kitten/components";
 
 import FormInput from "./FormInput";
-import FormButton from "./FormButton";
-import LoadingIndicator from "./LoadingIndicator";
+import SubmitButton from "./SubmitButton";
 
-const AuthForm = ({ submitText, onSubmit }) => {
+/**
+ * A form with inputs for email and password, and a submit button.
+ *
+ * @property {string} submitText - The text shown on the submit button.
+ * @property {async () => void} onSubmit - The function to be run on submit. Must be async. Thrown errors
+ *                                         will be shown in the form.
+ */
+const AuthForm = ({ submitText, onSubmit, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -23,7 +30,7 @@ const AuthForm = ({ submitText, onSubmit }) => {
   };
 
   return (
-    <>
+    <View {...props}>
       <FormInput
         autoFocus
         keyboardType="email-address"
@@ -37,15 +44,15 @@ const AuthForm = ({ submitText, onSubmit }) => {
         value={password}
         onChangeText={(p) => setPassword(p)}
       />
-      <FormButton
+      <SubmitButton
         disabled={email === "" || password === "" || loading}
         onPress={submit}
-        accessoryLeft={loading ? LoadingIndicator : null}
+        isLoading={loading}
       >
         <Text>{submitText}</Text>
-      </FormButton>
+      </SubmitButton>
       {error !== "" && <Text status="danger">{error}</Text>}
-    </>
+    </View>
   );
 };
 

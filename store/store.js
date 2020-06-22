@@ -1,5 +1,5 @@
 import { AsyncStorage } from "react-native";
-import { DataStore } from "aws-amplify";
+import { DataStore, Auth } from "aws-amplify";
 import { Item } from "../models";
 
 export const createThemeStore = () => ({
@@ -14,15 +14,36 @@ export const createThemeStore = () => ({
   },
 });
 
-export const createAuthInfoStore = () => ({
-  isLoggedIn: false,
-  setIsLoggedIn(value) {
-    this.isLoggedIn = value;
+export const createAuthStore = () => ({
+  user: null,
+  async signInAsync(email, password) {
+    await Auth.signIn(email, password);
+    this.setIsLoggedIn(true);
+  },
+  async signUpAsync(email, password) {
+    await Auth.signUp(email, password);
+  },
+  async confirmSignUpAsync(email, code) {
+    await Auth.confirmSignUp(email, code);
+  },
+  async resendSignUpAsync(email) {
+    await Auth.resendSignUp(email);
+  },
+  async signOutAsync() {
+    await Auth.signOut();
+  },
+  get isLoggedIn() {
+    return this.user !== null;
   },
 
-  user: { email: "" },
-  setUser(user) {
-    this.user = user;
+  async initializeAsync() {
+    const user = await Auth.currentAuthenticatedUser();
+    if (user) {
+      this.user = {
+        email: user.attributes.email,
+        confirmed: user.attributes.email_verified,
+      };
+    }
   },
 });
 

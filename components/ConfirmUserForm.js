@@ -1,11 +1,18 @@
 import React, { useState, memo } from "react";
+import { View } from "react-native";
 import { Text } from "@ui-kitten/components";
 
 import FormInput from "./FormInput";
-import FormButton from "./FormButton";
-import LoadingIndicator from "./LoadingIndicator";
+import SubmitButton from "./SubmitButton";
 
-const ConfirmUserForm = ({ onResend, onSubmit }) => {
+/**
+ * A form with an input for user confirmation through a code, and a submit button.
+ *
+ * @property {async () => void} onResend - The function to be run when the confirmation code must be resent.
+ * @property {async () => void} onSubmit - The function to be run on submit. Must be async. Thrown errors
+ *                                         will be shown in the form.
+ */
+const ConfirmUserForm = ({ onResend, onSubmit, ...props }) => {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,7 +29,7 @@ const ConfirmUserForm = ({ onResend, onSubmit }) => {
   };
 
   return (
-    <>
+    <View {...props}>
       <FormInput
         autoFocus
         keyboardType="numeric"
@@ -30,18 +37,18 @@ const ConfirmUserForm = ({ onResend, onSubmit }) => {
         value={code}
         onChangeText={(c) => setCode(c)}
       />
-      <FormButton
+      <SubmitButton
         disabled={code == "" || loading}
         onPress={verify}
-        accessoryLeft={loading ? LoadingIndicator : null}
+        isLoading={loading}
       >
         <Text>Confirm</Text>
-      </FormButton>
+      </SubmitButton>
       {error !== "" && <Text status="danger">{error}</Text>}
       <Text category="s1" onPress={onResend}>
         Resend code
       </Text>
-    </>
+    </View>
   );
 };
 

@@ -5,12 +5,21 @@ import Navigation from "../components/Navigation";
 import TodoList from "../components/TodoList";
 import useTheme from "../hooks/useTheme";
 import { observer } from "mobx-react-lite";
+import { screens } from "../constants";
 
+const UserIcon = (props) => <Icon {...props} name="person" />;
 const DarkIcon = (props) => <Icon {...props} name="moon-outline" />;
 const LightIcon = (props) => <Icon {...props} name="sun-outline" />;
 
 export default HomeScreen = observer(({ navigation }) => {
   const { theme, toggleTheme } = useTheme();
+
+  const UserAction = () => (
+    <TopNavigationAction
+      icon={UserIcon}
+      onPress={() => navigation.navigate(screens.USER_INFO)}
+    />
+  );
 
   const ThemeAction = () => (
     <TopNavigationAction
@@ -20,7 +29,11 @@ export default HomeScreen = observer(({ navigation }) => {
   );
 
   return (
-    <Navigation title="Home" accessoryRight={ThemeAction}>
+    <Navigation
+      title="Home"
+      accessoryLeft={UserAction}
+      accessoryRight={ThemeAction}
+    >
       <TodoList />
     </Navigation>
   );

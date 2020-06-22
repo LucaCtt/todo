@@ -10,7 +10,7 @@ import { AsyncStorage } from "react-native";
 // the startup of the app, before the splash screen is hidden.
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const { themeStore, authInfoStore } = useStore();
+  const { themeStore, authStore } = useStore();
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -28,8 +28,7 @@ export default function useCachedResources() {
           themeStore.setTheme(theme);
         }
 
-        const userInfo = await Auth.currentSession();
-        authInfoStore.setIsLoggedIn(!!userInfo);
+        await authStore.initializeAsync();
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);

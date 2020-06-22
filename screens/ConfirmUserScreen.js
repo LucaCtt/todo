@@ -1,25 +1,26 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Icon, TopNavigationAction } from "@ui-kitten/components";
-import { Auth } from "aws-amplify";
+import { observer } from "mobx-react-lite";
 
 import Navigation from "../components/Navigation";
 import ConfirmUserForm from "../components/ConfirmUserForm";
-import useAuthInfo from "../hooks/useAuthInfo";
+import useAuth from "../hooks/useAuth";
 import { screens } from "../constants";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
-export default ConfirmUserScreen = ({ navigation }) => {
-  const authInfo = useAuthInfo();
+export default ConfirmUserScreen = observer(({ route, navigation }) => {
+  const auth = useAuth();
+  const { email } = route.params;
 
   const BackAction = () => (
     <TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
   );
 
   const verifyUser = async (code) => {
-    await Auth.confirmSignUp(authInfo.user.email, code);
-    if (authInfo.isLoggedIn) {
+    await auth.confirmSignUpAsync(email, code);
+    if (auth.isLoggedIn) {
       navigation.navigate(screens.HOME);
     } else {
       navigation.navigate(screens.SIGN_IN);
@@ -27,17 +28,17 @@ export default ConfirmUserScreen = ({ navigation }) => {
   };
 
   return (
-    <Navigation title="Confirm User" accessoryLeft={BackAction}>
+    <Navigation title="Verify User" accessoryLeft={BackAction}>
       <Card disabled style={styles.container}>
         <ConfirmUserForm
           email={email}
-          onResend={() => Auth.resendSignUp(email)}
+          onResend={() => auth.resendSignUpAsync(email)}
           onSubmit={verifyUser}
         />
       </Card>
     </Navigation>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

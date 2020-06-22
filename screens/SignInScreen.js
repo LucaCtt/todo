@@ -1,25 +1,28 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Text } from "@ui-kitten/components";
-import { Auth } from "aws-amplify";
 
 import Navigation from "../components/Navigation";
-import FormButton from "../components/FormButton";
+import SubmitButton from "../components/SubmitButton";
 import AuthForm from "../components/AuthForm";
+import useAuth from "../hooks/useAuth";
 import { screens } from "../constants";
+import { observer } from "mobx-react-lite";
 
-export default SignInScreen = ({ navigation }) => {
+export default SignInScreen = observer(({ navigation }) => {
+  const auth = useAuth();
+
   const signIn = async (email, password) => {
-    await Auth.signIn(email, password);
+    await auth.signInAsync(email, password);
   };
 
   const GoToSignUpButton = () => (
-    <FormButton
+    <SubmitButton
       status="info"
       onPress={() => navigation.navigate(screens.SIGN_UP)}
     >
       <Text>Sign Up</Text>
-    </FormButton>
+    </SubmitButton>
   );
 
   return (
@@ -37,7 +40,7 @@ export default SignInScreen = ({ navigation }) => {
       </Card>
     </Navigation>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
