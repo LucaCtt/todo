@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite";
 import useItems from "../hooks/useItems";
 import TodoItem from "./TodoItem";
 import IconButton from "../components/IconButton";
+import { screens } from "../constants";
 
 export default TodoList = observer(({ ...props }) => {
   const { items, deleteItem } = useItems();
@@ -26,7 +27,7 @@ export default TodoList = observer(({ ...props }) => {
     <IconButton
       {...props}
       icon="plus"
-      onPress={() => navigation.navigate("NewItem")}
+      onPress={() => navigation.navigate(screens.NEW_ITEM)}
     />
   );
 

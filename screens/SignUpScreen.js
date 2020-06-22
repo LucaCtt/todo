@@ -6,6 +6,7 @@ import { Auth } from "aws-amplify";
 import Navigation from "../components/Navigation";
 import AuthForm from "../components/AuthForm";
 import useAuthInfo from "../hooks/useAuthInfo";
+import { screens } from "../constants";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
@@ -19,7 +20,7 @@ export default SignUpScreen = ({ navigation }) => {
   const signUp = async (email, password) => {
     const result = await Auth.signUp(email, password);
     authInfo.setUser({ email: result.user.getUsername() });
-    navigation.navigate("ConfirmUser");
+    navigation.navigate(screens.CONFIRM_USER);
   };
 
   return (

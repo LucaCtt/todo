@@ -6,6 +6,7 @@ import { Auth } from "aws-amplify";
 import Navigation from "../components/Navigation";
 import FormButton from "../components/FormButton";
 import AuthForm from "../components/AuthForm";
+import { screens } from "../constants";
 
 export default SignInScreen = ({ navigation }) => {
   const signIn = async (email, password) => {
@@ -13,7 +14,10 @@ export default SignInScreen = ({ navigation }) => {
   };
 
   const GoToSignUpButton = () => (
-    <FormButton status="info" onPress={() => navigation.navigate("SignUp")}>
+    <FormButton
+      status="info"
+      onPress={() => navigation.navigate(screens.SIGN_UP)}
+    >
       <Text>Sign Up</Text>
     </FormButton>
   );
@@ -24,7 +28,7 @@ export default SignInScreen = ({ navigation }) => {
         <AuthForm
           submitText="Sign In"
           onSubmit={signIn}
-          onSuccess={() => navigation.navigate("Home")}
+          onSuccess={() => navigation.navigate(screens.HOME)}
         />
         <Text category="s1" style={styles.or}>
           - or -
