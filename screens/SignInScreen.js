@@ -13,7 +13,7 @@ export default SignInScreen = observer(({ navigation }) => {
   const auth = useAuth();
 
   const signIn = async (email, password) => {
-    await auth.signInAsync(email, password);
+    await auth.signIn(email, password);
   };
 
   const GoToSignUpButton = () => (

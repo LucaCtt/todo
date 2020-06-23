@@ -19,7 +19,7 @@ export default ConfirmUserScreen = observer(({ route, navigation }) => {
   );
 
   const verifyUser = async (code) => {
-    await auth.confirmSignUpAsync(email, code);
+    await auth.confirmSignUp(email, code);
     if (auth.isLoggedIn) {
       navigation.navigate(screens.HOME);
     } else {
@@ -32,7 +32,7 @@ export default ConfirmUserScreen = observer(({ route, navigation }) => {
       <Card disabled style={styles.container}>
         <ConfirmUserForm
           email={email}
-          onResend={() => auth.resendSignUpAsync(email)}
+          onResend={() => auth.resendSignUp(email)}
           onSubmit={verifyUser}
         />
       </Card>

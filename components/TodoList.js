@@ -17,11 +17,7 @@ export default TodoList = observer(({ ...props }) => {
     <IconButton
       {...props}
       icon="trash"
-      onPress={() =>
-        itemsStore.items
-          .filter((i) => i.completed)
-          .forEach((i) => itemsStore.deleteItem(i))
-      }
+      onPress={() => itemsStore.clearCompleted()}
     />
   );
 

@@ -21,7 +21,7 @@ export default UserInfoScreen = observer(({ navigation }) => {
       <Card disabled style={styles.container}>
         <Text>Email: {auth.user.email}</Text>
         <Text>User Verified: {auth.user.confirmed ? "Yes" : "No"}</Text>
-        <SubmitButton onSubmit={() => auth.signOutAsync()}>
+        <SubmitButton onSubmit={() => auth.signOut()}>
           <Text>Sign Out</Text>
         </SubmitButton>
       </Card>

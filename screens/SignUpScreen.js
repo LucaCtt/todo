@@ -18,7 +18,7 @@ export default SignUpScreen = observer(({ navigation }) => {
   );
 
   const signUp = async (email, password) => {
-    const result = await auth.signUpAsync(email, password);
+    const result = await auth.signUp(email, password);
     navigation.navigate(screens.CONFIRM_USER, { email });
   };
 
