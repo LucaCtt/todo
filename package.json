@@ -9,11 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest",
     "lint": "eslint --ignore-path .gitignore \"**/*.{js,jsx}\""
-  },
-  "jest": {
-    "preset": "jest-expo"
   },
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
@@ -34,10 +30,10 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-reanimated": "~1.7.0",
-    "react-native-safe-area-context": "^0.7.3",
+    "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
     "react-native-svg": "11.0.1",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "^0.12.3"
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
@@ -49,12 +45,11 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "eslint-plugin-react-native": "^3.8.1",
     "husky": "^4.2.5",
-    "jest-expo": "~37.0.0",
     "prettier": "^2.0.5"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint -- --fix && npm test -- --passWithNoTests"
+      "pre-commit": "npm run lint -- --fix"
     }
   }
 }
