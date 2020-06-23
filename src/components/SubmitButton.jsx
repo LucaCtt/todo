@@ -4,7 +4,7 @@ import { Button, Spinner } from "@ui-kitten/components";
 
 const LoadingIndicator = ({ ...props }) => (
   <View {...props}>
-    <Spinner />
+    <Spinner testID="loading-indicator" />
   </View>
 );
 
@@ -18,6 +18,7 @@ const SubmitButton = ({ isLoading = false, style, children, ...props }) => (
     {...props}
     accessoryLeft={isLoading ? LoadingIndicator : null}
     style={[styles.button, style]}
+    testID="submit-button"
   >
     {isLoading ? null : children}
   </Button>

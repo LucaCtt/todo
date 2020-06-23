@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.js",
     "name": "todo-list",
     "slug": "todo-list",
     "platforms": ["ios", "android", "web"],
