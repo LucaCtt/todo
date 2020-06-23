@@ -69,21 +69,25 @@ const createAuthStore = () => ({
 const createItemsStore = () => ({
   items: [],
   async addItem(text) {
-    const item = {
-      text,
-      completed: false,
-    };
-
+    // Run graphql mutation and get the id of the created item.
     const {
-      data: { createItem },
+      data: {
+        createItem: { id },
+      },
     } = await API.graphql(
-      graphqlOperation(mutations.createItem, { input: item })
+      graphqlOperation(mutations.createItem, {
+        input: {
+          text,
+          completed: false,
+        },
+      })
     );
 
+    // Add item to the local list.
     this.items.push({
-      id: createItem.id,
-      text: createItem.text,
-      completed: createItem.completed,
+      id,
+      text,
+      completed: false,
     });
   },
   async toggleCompleteItem(id) {
@@ -100,14 +104,17 @@ const createItemsStore = () => ({
     );
   },
   async clearCompleted() {
-    const toDelete = this.items.filter((i) => i.completed);
-    toDelete.forEach(
-      async ({ id }) =>
-        await API.graphql(
-          graphqlOperation(mutations.deleteItem, { input: { id } })
-        )
-    );
+    // Delete the completed items remotely.
+    this.items
+      .filter((i) => i.completed)
+      .forEach(
+        async ({ id }) =>
+          await API.graphql(
+            graphqlOperation(mutations.deleteItem, { input: { id } })
+          )
+      );
 
+    // Delete the completed items locally
     this.items = this.items.filter((i) => !i.completed);
   },
 
