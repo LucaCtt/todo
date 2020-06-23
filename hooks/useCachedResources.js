@@ -32,7 +32,7 @@ export default function useCachedResources() {
     }
 
     loadResourcesAndDataAsync();
-  }, []);
+  }, [store]);
 
   return isLoadingComplete;
 }

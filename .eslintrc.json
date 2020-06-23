@@ -10,7 +10,8 @@
   "extends": [
     "plugin:prettier/recommended",
     "plugin:react/recommended",
-    "plugin:react-native/all"
+    "plugin:react-native/all",
+    "plugin:react-hooks/recommended"
   ],
   "plugins": ["react", "react-native"],
   "settings": {

@@ -1,6 +1,5 @@
 import { AsyncStorage } from "react-native";
 import { API, graphqlOperation, Auth } from "aws-amplify";
-import { useLocalStore } from "mobx-react-lite";
 
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
@@ -8,7 +7,7 @@ import * as mutations from "../graphql/mutations";
 /**
  * Creates a new theme store backed by AsyncStorage.
  */
-const createThemeStore = () => ({
+export const createThemeStore = () => ({
   theme: "light",
   async toggleTheme() {
     const nextTheme = this.theme === "light" ? "dark" : "light";
@@ -29,7 +28,7 @@ const createThemeStore = () => ({
 /**
  * Creates a new auth store backed by AWS Cognito.
  */
-const createAuthStore = () => ({
+export const createAuthStore = () => ({
   user: null,
   async signIn(email, password) {
     await Auth.signIn(email, password);
@@ -66,7 +65,7 @@ const createAuthStore = () => ({
 /**
  * Creates a new items store backed by AWS AppSync
  */
-const createItemsStore = () => ({
+export const createItemsStore = () => ({
   items: [],
   async addItem(text) {
     // Run graphql mutation and get the id of the created item.
@@ -129,25 +128,5 @@ const createItemsStore = () => ({
     items
       .map(({ id, text, completed }) => ({ id, text, completed }))
       .forEach((i) => this.items.push(i));
-  },
-});
-
-/**
- * Creates a new store container, which wraps the various stores.
- *
- * The *initialize()* method should be called (ideally at startup) to
- * initialize the stores.
- */
-export default createStore = () => ({
-  authStore: useLocalStore(createAuthStore),
-  itemsStore: useLocalStore(createItemsStore),
-  themeStore: useLocalStore(createThemeStore),
-
-  // The order here is actually not important: all the auth information
-  // is automatically initialized and handled by the AWS Amplify package.
-  async initialize() {
-    await this.authStore._initialize();
-    await this.itemsStore._initialize();
-    await this.themeStore._initialize();
   },
 });
