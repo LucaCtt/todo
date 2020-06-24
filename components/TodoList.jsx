@@ -9,17 +9,21 @@ import TodoItem from "./TodoItem";
 import IconButton from "../components/IconButton";
 import { screens } from "../constants";
 
-export default TodoList = observer(({ ...props }) => {
+const TodoList = ({ ...props }) => {
   const itemsStore = useItems();
   const navigation = useNavigation();
 
-  const ClearButton = (props) => (
+  const ClearButton = observer((props) => (
     <IconButton
       {...props}
       icon="trash"
-      onPress={() => itemsStore.clearCompleted()}
+      onPress={() =>
+        itemsStore.items
+          .filter((i) => i.completed)
+          .forEach((i) => itemsStore.deleteItem(i.id))
+      }
     />
-  );
+  ));
 
   const NewItemButton = (props) => (
     <IconButton
@@ -41,27 +45,17 @@ export default TodoList = observer(({ ...props }) => {
     </View>
   );
 
-  const ItemsList = observer((props) => {
-    // The items list cannot be passed down directly, because the list would not refresh
-    // when an item is added or removed. This happens because the List component is not
-    // an observer. To work around this problem, the slice() method is called on the items list.
-    return (
+  return (
+    <Card {...props} disabled header={Header} style={styles.container}>
       <List
-        {...props}
-        keyExtractor={(item) => `${item.id}`}
-        data={itemsStore.items.slice()}
+        keyExtractor={(item) => item.id}
+        data={itemsStore.dataSource}
         renderItem={({ item }) => <TodoItem item={item} />}
         ItemSeparatorComponent={Divider}
       />
-    );
-  });
-
-  return (
-    <Card {...props} disabled header={Header} style={styles.container}>
-      <ItemsList />
     </Card>
   );
-});
+};
 
 const styles = StyleSheet.create({
   header: {
@@ -80,3 +74,5 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
 });
+
+export default observer(TodoList);

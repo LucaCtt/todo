@@ -11,7 +11,7 @@ const UserIcon = (props) => <Icon {...props} name="person" />;
 const DarkIcon = (props) => <Icon {...props} name="moon-outline" />;
 const LightIcon = (props) => <Icon {...props} name="sun-outline" />;
 
-export default HomeScreen = observer(({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
   const themeStore = useTheme();
 
   const UserAction = () => (
@@ -37,4 +37,6 @@ export default HomeScreen = observer(({ navigation }) => {
       <TodoList />
     </Navigation>
   );
-});
+};
+
+export default observer(HomeScreen);

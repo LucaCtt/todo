@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
-export default UserInfoScreen = observer(({ navigation }) => {
+const UserInfoScreen = ({ navigation }) => {
   const auth = useAuth();
 
   const BackAction = () => (
@@ -27,7 +27,7 @@ export default UserInfoScreen = observer(({ navigation }) => {
       </Card>
     </Navigation>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -36,3 +36,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default observer(UserInfoScreen);

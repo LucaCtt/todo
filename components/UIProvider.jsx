@@ -10,7 +10,7 @@ import useTheme from "../hooks/useTheme";
 import useCachedResources from "../hooks/useCachedResources";
 import { theme as customTheme, mapping } from "../eva-theme.json";
 
-export default UIProvider = observer(({ children }) => {
+const UIProvider = ({ children }) => {
   // Resources are loaded here instead than on the root component because access to the store
   // is required to load the stored theme.
   const isLoadingComplete = useCachedResources();
@@ -44,4 +44,6 @@ export default UIProvider = observer(({ children }) => {
       </>
     );
   }
-});
+};
+
+export default observer(UIProvider);

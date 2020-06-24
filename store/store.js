@@ -1,5 +1,5 @@
-import { AsyncStorage } from "react-native";
 import { API, graphqlOperation, Auth } from "aws-amplify";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
@@ -12,7 +12,7 @@ export const createThemeStore = () => ({
   async toggleTheme() {
     const nextTheme = this.theme === "light" ? "dark" : "light";
 
-    this.setTheme(nextTheme);
+    this.theme = nextTheme;
     await AsyncStorage.setItem("theme", this.theme);
   },
 
@@ -32,7 +32,6 @@ export const createAuthStore = () => ({
   user: null,
   async signIn(email, password) {
     await Auth.signIn(email, password);
-    this.setIsLoggedIn(true);
   },
   async signUp(email, password) {
     await Auth.signUp(email, password);
@@ -69,11 +68,7 @@ export const createItemsStore = () => ({
   items: [],
   async addItem(text) {
     // Run graphql mutation and get the id of the created item.
-    const {
-      data: {
-        createItem: { id },
-      },
-    } = await API.graphql(
+    const result = await API.graphql(
       graphqlOperation(mutations.createItem, {
         input: {
           text,
@@ -84,7 +79,7 @@ export const createItemsStore = () => ({
 
     // Add item to the local list.
     this.items.push({
-      id,
+      id: result.data.createItem.id,
       text,
       completed: false,
     });
@@ -102,31 +97,30 @@ export const createItemsStore = () => ({
       })
     );
   },
-  async clearCompleted() {
-    // Delete the completed items remotely.
-    this.items
-      .filter((i) => i.completed)
-      .forEach(
-        async ({ id }) =>
-          await API.graphql(
-            graphqlOperation(mutations.deleteItem, { input: { id } })
-          )
-      );
+  async deleteItem(id) {
+    this.items = this.items.filter((i) => i.id !== id);
 
-    // Delete the completed items locally
-    this.items = this.items.filter((i) => !i.completed);
+    await API.graphql(
+      graphqlOperation(mutations.deleteItem, { input: { id } })
+    );
+  },
+  get dataSource() {
+    // The items list cannot be passed down directly, because the list would not refresh
+    // when an item is added or removed. This happens because the List component is not
+    // an observer. To work around this problem, the slice() method is called on the items list.
+    return this.items.slice();
   },
 
   // Get the items from the API.
   async _initialize() {
-    const {
-      data: {
-        listItems: { items },
-      },
-    } = await API.graphql(graphqlOperation(queries.listItems));
+    const result = await API.graphql(graphqlOperation(queries.listItems));
 
-    items
-      .map(({ id, text, completed }) => ({ id, text, completed }))
-      .forEach((i) => this.items.push(i));
+    this.items.push(
+      ...result.data.listItems.items.map(({ id, text, completed }) => ({
+        id,
+        text,
+        completed,
+      }))
+    );
   },
 });

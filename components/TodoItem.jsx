@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 
 import useItems from "../hooks/useItems";
 
-export default TodoItem = observer(({ item, ...props }) => {
+const TodoItem = ({ item, ...props }) => {
   const itemsStore = useItems();
 
   const Left = observer((props) => (
@@ -36,7 +36,7 @@ export default TodoItem = observer(({ item, ...props }) => {
       accessoryLeft={Left}
     />
   );
-});
+};
 
 const styles = StyleSheet.create({
   text: {
@@ -50,3 +50,5 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
   },
 });
+
+export default observer(TodoItem);

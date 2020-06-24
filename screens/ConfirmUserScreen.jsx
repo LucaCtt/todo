@@ -10,7 +10,7 @@ import { screens } from "../constants";
 
 const BackIcon = (props) => <Icon {...props} name="arrow-back" />;
 
-export default ConfirmUserScreen = observer(({ route, navigation }) => {
+const ConfirmUserScreen = ({ route, navigation }) => {
   const auth = useAuth();
   const { email } = route.params;
 
@@ -38,7 +38,7 @@ export default ConfirmUserScreen = observer(({ route, navigation }) => {
       </Card>
     </Navigation>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -47,3 +47,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default observer(ConfirmUserScreen);

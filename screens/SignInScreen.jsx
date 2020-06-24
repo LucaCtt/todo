@@ -9,7 +9,7 @@ import useAuth from "../hooks/useAuth";
 import { screens } from "../constants";
 import { observer } from "mobx-react-lite";
 
-export default SignInScreen = observer(({ navigation }) => {
+const SignInScreen = ({ navigation }) => {
   const auth = useAuth();
 
   const signIn = async (email, password) => {
@@ -40,7 +40,7 @@ export default SignInScreen = observer(({ navigation }) => {
       </Card>
     </Navigation>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -52,3 +52,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+export default observer(SignInScreen);
