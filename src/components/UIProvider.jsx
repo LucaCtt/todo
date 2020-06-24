@@ -8,7 +8,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useTheme from "../hooks/useTheme";
 import useCachedResources from "../hooks/useCachedResources";
-import { theme as customTheme, mapping } from "../eva-theme.json";
+import { theme as customTheme, mapping } from "../../eva-theme.json";
 
 const UIProvider = ({ children }) => {
   // Resources are loaded here instead than on the root component because access to the store

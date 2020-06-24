@@ -2,12 +2,13 @@
   "author": "Luca Cotti <lucacotti@outlook.com>",
   "license": "MIT",
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./src/App.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
+    "test": "jest",
     "lint": "eslint --ignore-path .gitignore \"**/*.{js,jsx}\""
   },
   "dependencies": {
@@ -35,6 +36,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.10.3",
+    "@testing-library/react-native": "^5.0.3",
+    "babel-jest": "^26.1.0",
     "babel-preset-expo": "~8.1.0",
     "eslint": "^7.3.0",
     "eslint-config-prettier": "^6.11.0",
@@ -43,7 +46,9 @@
     "eslint-plugin-react-hooks": "^4.0.4",
     "eslint-plugin-react-native": "^3.8.1",
     "husky": "^4.2.5",
-    "prettier": "^2.0.5"
+    "jest-expo": "^37.0.0",
+    "prettier": "^2.0.5",
+    "react-test-renderer": "^16.13.1"
   },
   "husky": {
     "hooks": {

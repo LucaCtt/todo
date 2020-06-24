@@ -18,7 +18,7 @@ export default function useCachedResources() {
 
         // Load fonts
         await Font.loadAsync({
-          OpenSans: require("../assets/fonts/OpenSans-Regular.ttf"),
+          OpenSans: require("../../assets/fonts/OpenSans-Regular.ttf"),
         });
 
         await store.initialize();
