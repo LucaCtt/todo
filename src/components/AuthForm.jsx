@@ -24,7 +24,6 @@ const AuthForm = ({ submitText, onSubmit, ...props }) => {
       await onSubmit(email, password);
     } catch (err) {
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   };

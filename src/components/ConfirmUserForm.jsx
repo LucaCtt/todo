@@ -23,7 +23,6 @@ const ConfirmUserForm = ({ onResend, onSubmit, ...props }) => {
       await onSubmit(code);
     } catch (err) {
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   };

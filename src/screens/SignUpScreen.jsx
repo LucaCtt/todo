@@ -18,7 +18,7 @@ const SignUpScreen = ({ navigation }) => {
   );
 
   const signUp = async (email, password) => {
-    const result = await auth.signUp(email, password);
+    await auth.signUp(email, password);
     navigation.navigate(screens.CONFIRM_USER, { email });
   };
 

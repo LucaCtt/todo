@@ -115,8 +115,8 @@ export const createItemsStore = () => ({
   async _initialize() {
     const result = await API.graphql(graphqlOperation(queries.listItems));
 
-    this.items.push(
-      ...result.data.listItems.items.map(({ id, text, completed }) => ({
+    this.items.replace(
+      result.data.listItems.items.map(({ id, text, completed }) => ({
         id,
         text,
         completed,

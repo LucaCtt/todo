@@ -14,6 +14,7 @@ const SignInScreen = ({ navigation }) => {
 
   const signIn = async (email, password) => {
     await auth.signIn(email, password);
+    navigation.navigate(screens.HOME);
   };
 
   const GoToSignUpButton = () => (
@@ -28,11 +29,7 @@ const SignInScreen = ({ navigation }) => {
   return (
     <Navigation title="Sign In">
       <Card disabled style={styles.container}>
-        <AuthForm
-          submitText="Sign In"
-          onSubmit={signIn}
-          onSuccess={() => navigation.navigate(screens.HOME)}
-        />
+        <AuthForm submitText="Sign In" onSubmit={signIn} />
         <Text category="s1" style={styles.or}>
           - or -
         </Text>

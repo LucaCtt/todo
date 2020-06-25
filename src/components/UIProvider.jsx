@@ -1,10 +1,9 @@
 import React from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, View } from "react-native";
 import * as eva from "@eva-design/eva";
 import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { observer } from "mobx-react-lite";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import useTheme from "../hooks/useTheme";
 import useCachedResources from "../hooks/useCachedResources";
@@ -15,6 +14,11 @@ const UIProvider = ({ children }) => {
   // is required to load the stored theme.
   const isLoadingComplete = useCachedResources();
   const themeStore = useTheme();
+
+  const backgroundColor =
+    eva[themeStore.theme][
+      `color-basic-${themeStore.theme === "light" ? "100" : "800"}`
+    ];
 
   if (!isLoadingComplete) {
     return null;
@@ -27,19 +31,16 @@ const UIProvider = ({ children }) => {
           theme={{ ...eva[themeStore.theme], ...customTheme }}
           customMapping={mapping}
         >
-          <SafeAreaProvider>
-            <StatusBar
-              barStyle={
-                themeStore.theme === "light" ? "dark-content" : "light-content"
-              }
-              backgroundColor={
-                eva[themeStore.theme][
-                  `color-basic-${themeStore.theme === "light" ? "100" : "800"}`
-                ]
-              }
-            />
+          <StatusBar
+            barStyle={
+              themeStore.theme === "light" ? "dark-content" : "light-content"
+            }
+            backgroundColor={backgroundColor}
+          />
+          {/*eslint-disable-next-line react-native/no-inline-styles*/}
+          <View style={{ flex: 1, backgroundColor: backgroundColor }}>
             {children}
-          </SafeAreaProvider>
+          </View>
         </ApplicationProvider>
       </>
     );
