@@ -9,8 +9,8 @@ import SubmitButton from "./SubmitButton";
  * A form with inputs for email and password, and a submit button.
  *
  * @property {string} submitText - The text shown on the submit button.
- * @property {async () => void} onSubmit - The function to be run on submit. Must be async. Thrown errors
- *                                         will be shown in the form.
+ * @property {() => void} onSubmit - The function to be run on submit. Can be async: in that case the result
+ *                                   will be awaited. Thrown errors will be shown in the form.
  */
 const AuthForm = ({ submitText, onSubmit, ...props }) => {
   const [email, setEmail] = useState("");

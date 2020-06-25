@@ -3,8 +3,8 @@ import { View, StyleSheet } from "react-native";
 import { Button, Spinner } from "@ui-kitten/components";
 
 const LoadingIndicator = ({ ...props }) => (
-  <View {...props}>
-    <Spinner testID="loading-indicator" />
+  <View {...props} accessibilityLabel="loading">
+    <Spinner />
   </View>
 );
 
@@ -18,7 +18,6 @@ const SubmitButton = ({ isLoading = false, style, children, ...props }) => (
     {...props}
     accessoryLeft={isLoading ? LoadingIndicator : null}
     style={[styles.button, style]}
-    testID="submit-button"
   >
     {isLoading ? null : children}
   </Button>

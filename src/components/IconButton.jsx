@@ -10,7 +10,7 @@ const IconButton = ({ icon, ...props }) => (
   <Button
     appearance="ghost"
     {...props}
-    accessoryLeft={(props) => <Icon {...props} name={icon} />}
+    accessoryLeft={(props) => <Icon {...props} name={icon} testID="icon" />}
   />
 );
 

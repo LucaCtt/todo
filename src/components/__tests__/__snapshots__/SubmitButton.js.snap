@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SubmitButton /> has 1 child 1`] = `
+exports[`<SubmitButton /> matches snapshot 1`] = `
 <View
   pointerEvents="box-none"
   style={
@@ -58,9 +58,9 @@ exports[`<SubmitButton /> has 1 child 1`] = `
             ],
           ]
         }
-        testID="submit-button"
       >
         <View
+          accessibilityLabel="loading"
           style={
             Object {
               "height": 20,
