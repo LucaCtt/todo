@@ -13,7 +13,7 @@ const App = createNativeStackNavigator();
 
 export default AppNavigator = () => {
   const auth = useAuth();
-  const initial = auth.isLoggedIn ? screens.HOME : screens.AUTH;
+  const initial = auth.isSignedIn ? screens.HOME : screens.AUTH;
 
   return (
     <NavigationContainer>

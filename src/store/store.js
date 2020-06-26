@@ -17,7 +17,7 @@ export const createThemeStore = () => ({
   },
 
   // Read the stored theme in AsyncStorage.
-  async _initialize() {
+  async initialize() {
     const theme = await AsyncStorage.getItem("theme");
     if (theme) {
       this.theme = theme;
@@ -45,12 +45,12 @@ export const createAuthStore = () => ({
   async signOut() {
     await Auth.signOut();
   },
-  get isLoggedIn() {
+  get isSignedIn() {
     return this.user !== null;
   },
 
   // Populate user info.
-  async _initialize() {
+  async initialize() {
     const user = await Auth.currentAuthenticatedUser();
     if (user) {
       this.user = {
@@ -112,7 +112,7 @@ export const createItemsStore = () => ({
   },
 
   // Get the items from the API.
-  async _initialize() {
+  async initialize() {
     const result = await API.graphql(graphqlOperation(queries.listItems));
 
     this.items.replace(

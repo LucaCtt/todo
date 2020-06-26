@@ -20,7 +20,7 @@ const ConfirmUserScreen = ({ route, navigation }) => {
 
   const verifyUser = async (code) => {
     await auth.confirmSignUp(email, code);
-    if (auth.isLoggedIn) {
+    if (auth.isSignedIn) {
       navigation.navigate(screens.HOME);
     } else {
       navigation.navigate(screens.SIGN_IN);

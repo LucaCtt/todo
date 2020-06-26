@@ -33,13 +33,12 @@ npm i
 npm start
 ```
 
-To instead build for production:
+To access the app you will need the Android emulator/IOs emulator, or a physical device with
+the Expo app installed. Please refer to the
+[Expo documentation](https://docs.expo.io/get-started/installation/#2-mobile-app-expo-client-for-ios)
+for more information.
 
-TODO
-
-## Documentation
-
-TODO
+If you want to deploy the application, please read the [related Expo documentation](https://docs.expo.io/workflow/publishing/).
 
 ## License
 

@@ -1,19 +1,21 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Card, Text } from "@ui-kitten/components";
+import { observer } from "mobx-react-lite";
 
 import Navigation from "../components/Navigation";
 import SubmitButton from "../components/SubmitButton";
 import AuthForm from "../components/AuthForm";
-import useAuth from "../hooks/useAuth";
+import useStore from "../hooks/useStore";
 import { screens } from "../constants";
-import { observer } from "mobx-react-lite";
 
 const SignInScreen = ({ navigation }) => {
-  const auth = useAuth();
+  const { auth, items } = useStore();
 
   const signIn = async (email, password) => {
     await auth.signIn(email, password);
+    await auth.initialize();
+    await items.initialize();
     navigation.navigate(screens.HOME);
   };
 

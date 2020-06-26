@@ -21,7 +21,12 @@ export default function useCachedResources() {
           OpenSans: require("../../assets/fonts/OpenSans-Regular.ttf"),
         });
 
-        await store.initialize();
+        await store.themeStore.initialize();
+
+        if (store.authStore.isSignedIn) {
+          await store.authStore.initialize();
+          await store.itemsStore.initialize();
+        }
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
